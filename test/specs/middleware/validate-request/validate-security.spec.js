@@ -78,7 +78,7 @@ describe.skip("Validate Request middleware - 401 (Unauthorized)", () => {
   });
 
   it("should NOT throw an HTTP 401 if an ApiKey authentication requirement is met (in query)", (done) => {
-    api.securityDefinitions.petStoreApiKey.in = "query";
+    api.components.securitySchemes.petStoreApiKey.in = "query";
     let security = api.paths["/pets"].get.security = [{ petStoreApiKey: []}];
     initTest(api, ({ express, supertest }) => {
 
@@ -93,7 +93,7 @@ describe.skip("Validate Request middleware - 401 (Unauthorized)", () => {
   });
 
   it("should NOT throw an HTTP 401 if any of the security requirements are fully met", (done) => {
-    api.securityDefinitions.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
+    api.components.securitySchemes.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
     let security = api.paths["/pets"].get.security = [
       {
         petStoreBasic: [],  // met
@@ -119,7 +119,7 @@ describe.skip("Validate Request middleware - 401 (Unauthorized)", () => {
   });
 
   it("should throw an HTTP 401 if only some parts of a security requirements are met", (done) => {
-    api.securityDefinitions.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
+    api.components.securitySchemes.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
     let security = api.paths["/pets"].get.security = [
       {
         petStoreBasic: [],  // NOT met
@@ -149,7 +149,7 @@ describe.skip("Validate Request middleware - 401 (Unauthorized)", () => {
   });
 
   it("should throw an HTTP 401 if none of the security requirements are met", (done) => {
-    api.securityDefinitions.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
+    api.components.securitySchemes.petStoreApiKey2 = { type: "apiKey", name: "petStoreKey2", in: "query" };
     let security = api.paths["/pets"].get.security = [
       {
         petStoreBasic: [],  // NOT met
